@@ -8,7 +8,7 @@ namespace BL
 {
     public class Usuario
     {
-        public static ML.Result GetAll(ML.Usuario usuario*)
+        public static ML.Result GetAll(ML.Usuario usuario)
         {
             ML.Result result = new ML.Result();
 
