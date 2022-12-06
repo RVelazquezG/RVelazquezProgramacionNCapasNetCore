@@ -1,0 +1,74 @@
+﻿@model ML.Empresa
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>EMPRESAS</h2>
+
+<div class="container">
+
+    <div class="row">
+        <div style="float:right">
+            @Html.ActionLink("+", "Form", "Empresa", htmlAttributes: new { @class = "btn btn-success" })
+        </div>
+    </div>
+
+    @using (Html.BeginForm("GetAll", "Empresa", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="col-3">
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @placeholder = "Nombre" })
+            </div>
+            <div class="col-3">
+                <input type="submit" value="Buscar" class="btn btn-warning" />
+            </div>
+        </div>
+    }
+
+
+    <hr />
+    <div class="row">
+
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>Editar</th>
+                    <th class="hidden">IdEmpresa</th>
+                    <th>Nombre</th>
+                    <th>Telefono</th>
+                    <th>Email</th>
+                    <th>DireccionWeb</th>
+                    <th>Logo</th>
+                    <th>Eliminar</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach (ML.Empresa empresa in Model.Empresas)
+                {
+                    <tr>
+                        <td class="text-center"><a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("Form", "Empresa", new { IdEmpresa = empresa.IdEmpresa})"></a></td>
+                        <td class="hidden">@empresa.IdEmpresa</td>
+                        <td>@empresa.Nombre</td>
+                        <td>@empresa.Telefono</td>
+                        <td>@empresa.Email</td>
+                        <td>@empresa.DireccionWeb</td>
+                        @if (empresa.Logo != null)
+                        {
+                            <td><img id="Img" src="data:image/*;base64,@empresa.Logo" style="width:150px ; height:150px" /></td>
+                        }
+                        else
+                        {
+                            <td><img src="~/css/SinUsuario.png" style=" height:150px; width:150px;" /></td>
+                        }
+                        <td class="text-center"><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Empresa", new { IdEmpresa = empresa.IdEmpresa})" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+
+
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

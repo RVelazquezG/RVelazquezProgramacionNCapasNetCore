@@ -1,0 +1,207 @@
+﻿@model ML.Empleado
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <h4>Agregar Empleado</h4>  <br>
+    <div class="row">
+
+
+        @using (Html.BeginForm("Form", "Empleado", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-4">
+
+                        <div class="col">
+                            @Html.LabelFor(model => model.NumeroEmpleado)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                @Html.TextBoxFor(model => model.NumeroEmpleado, new { @class = "form-control", @id = "txtNombre", @placeholder="Ejemplo: Eduardo", autocomplete = "off", @onkeypress = "return SoloLetras(event,'lblNombre')" })
+                                @Html.ValidationMessageFor(model => model.NumeroEmpleado, null, new { @class = "text-danger"})
+
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            @Html.LabelFor(model => model.RFC)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                @Html.TextBoxFor(model => model.RFC, new { @class = "form-control", @id = "txtRFC", @placeholder="Ejemplo: Eduardo", autocomplete = "off"})
+                                @Html.ValidationMessageFor(model => model.RFC, null, new { @class = "text-danger"})
+
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            @Html.LabelFor(model => model.Nombre)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @id = "txtNombre", @placeholder="Ejemplo: Eduardo", autocomplete = "off", @onkeypress = "return SoloLetras(event,'lblNombre')" })
+                                @Html.ValidationMessageFor(model => model.Nombre, null, new { @class = "text-danger"})
+
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            @Html.LabelFor(model => model.ApellidoPaterno)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control", @id = "txtApellidoPaterno", @placeholder="Ejemplo: Hernandez", autocomplete = "off", @onkeypress = "return SoloLetras(event,'lblApellidoPaterno')" })
+                                @Html.ValidationMessageFor(model => model.ApellidoPaterno, null, new { @class = "text-danger"})
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            @Html.LabelFor(model => model.ApellidoMaterno)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control", @id = "txtApellidoMaterno", @placeholder="Ejemplo: Gonzalez", autocomplete = "off", @onkeypress = "return SoloLetras(event,'lblApellidoMaterno')" })
+                                @Html.ValidationMessageFor(model => model.ApellidoMaterno, null, new { @class = "text-danger"})
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            @Html.LabelFor(model => model.Email)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-calendar-plus"></i></span>
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @id = "txtemail", autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger"})
+                            </div>
+                        </div>
+
+                        
+
+   
+                    </div>
+
+                    <div class="col-4">
+
+                        <div class="col">
+                            @Html.LabelFor(model => model.Telefono)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-calendar-plus"></i></span>
+                                @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control", @id = "txtTelefono", autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.Telefono, null, new { @class = "text-danger"})
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            @Html.LabelFor(model => model.FechaNacimiento)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-calendar-plus"></i></span>
+                                @Html.TextBoxFor(model => model.FechaNacimiento, new { @class = "form-control", @id = "txtFechaNacimiento", autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.FechaNacimiento, null, new { @class = "text-danger"})
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            @Html.LabelFor(model => model.NSS)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
+                                @Html.TextBoxFor(model => model.NSS, new { @class = "form-control", @id = "txtCURP", autocomplete = "off", @onchange = "return validaCURP(event,'lblCURP')" })
+                                @Html.ValidationMessageFor(model => model.NSS, null, new { @class = "text-danger"})
+
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            @Html.LabelFor(model => model.FechaIngreso)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-envelope-at"></i></span>
+                                @Html.TextBoxFor(model => model.FechaIngreso, new { @class = "form-control", @id = "txtEmail", @placeholder="example@gmail.com", autocomplete = "off"})
+                                @Html.ValidationMessageFor(model => model.FechaIngreso, null, new { @class = "text-danger"})
+                            </div>
+                        </div>
+
+                         <div class="col">
+                    @Html.LabelFor(model => model.Empresa.IdEmpresa)
+                    <div class="input-group mb">
+                        <span class="input-group-text"><i class="bi bi-list-nested"></i></span>
+                        @Html.DropDownListFor(model => model.Empresa.IdEmpresa, new SelectList(Model.Empresa.Empresas, "IdEmpresa", "Nombre"), "Selecciona una opción", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Empresa.IdEmpresa)
+                    </div>
+                </div>
+
+                    </div>
+
+                    <div class="col-4 col-sm-3">
+                        @Html.LabelFor(model => model.Foto)
+                        <div class="input-group mb">
+                            <span class="input-group-text"><i class="bi bi-person-bounding-box"></i></span>
+                            <input id="IFImage" type='file' class="form-control" name="IFImage" onchange="validateFile(this), readURL(this);  " />
+
+                            @if (Model.Foto != null)
+                            {
+                                <img id="ImagePreview" src="data:image/*;base64,@Model.Foto" style="width:250px ; height:250px" />
+                            }
+                            else
+                            {
+                                <img id="ImagePreview" src="~/css/SinUsuario.png" style="width:250px ; height:250px" />
+                            }
+                            @Html.ValidationMessageFor(model => model.Foto)
+
+                        </div>
+                    </div>
+                </div>
+
+
+                @Html.HiddenFor(model => model.Foto)
+
+
+               
+
+
+            </div>
+
+            <br />
+            <br />
+                <div class="container">
+                    <div class="row">
+                        <div class="col align-self-center">
+                            <input type="submit" value="Guardar" class="btn btn-success" />
+                            @Html.ActionLink("Regresar", "GetAll", "Empleado", htmlAttributes: new { @class = "btn btn-danger" })
+                        </div>
+                    </div>
+                </div>
+
+
+        }
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+
+
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#ImagePreview').attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $(function () {
+            $("#txtFechaNacimiento").datepicker({
+                minDate: "-60Y", maxDate: "+1M +10D",
+                dateFormat: 'dd-mm-yy',
+                changeMonth: true,
+                changeYear: true,
+            });
+        });
+
+    </script>
+}

@@ -1,0 +1,76 @@
+﻿@model ML.Empleado
+@{
+    ViewData["Title"] = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>EMPLEADOS</h2>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="row">
+            <div style="float:right;">
+                @Html.ActionLink("+", "Form", "Empleado", htmlAttributes: new { @class = "btn btn-success" })
+            </div>
+        </div>
+
+    </div>
+    <hr />
+    <div class="row">
+        <table class="table table-responsive" id="tblEmleados">
+            <thead>
+                <tr>
+                    <th>Editar</th>
+                    <th hidden>NumeroEmpleado</th>
+                    <th>RFC</th>
+                    <th>Nombre</th>
+                 @*   <th>Apellido Materno</th>
+                    <th>Apellido Paterno</th>*@
+                    <th>Email</th>
+                    <th>Telefono</th>
+                    <th>Fecha Nacimiento</th>
+                    <th>NSS</th>
+                    <th>FechaIngreso</th>
+                    <th>Foto</th>
+                    <th>Empresa</th>
+                    <th>Eliminar</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach (ML.Empleado empleado in Model.Empleados)
+                {
+                    <tr>
+                        <td class="text-center"><a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("Form", "Empleado", new { NumeroEmpleado = empleado.NumeroEmpleado})"><i class="bi bi-pencil-square"></i></a></td>
+                        <td hidden>@empleado.NumeroEmpleado</td>
+                        <td>@empleado.RFC</td>
+                        <td>@empleado.Nombre @empleado.ApellidoPaterno @empleado.ApellidoMaterno</td>
+                      @*  <td></td>
+                        <td></td>*@
+                        <td>@empleado.Email</td>
+                        <td>@empleado.Telefono</td>
+                        <td>@empleado.FechaNacimiento</td>
+                        <td>@empleado.NSS</td>
+                        <td>@empleado.FechaIngreso</td>
+                        @if (empleado.Foto != null)
+                        {
+                            <td><img id="Img" src="data:image/*;base64,@empleado.Foto" style="width:150px ; height:150px" /></td>
+                        }
+                        else
+                        {
+                            <td><img src="~/css/SinUsuario.png" style=" height:150px; width:150px;" /></td>
+                        }
+                        <td>@empleado.Empresa.Nombre</td>
+                        <td class="text-center"><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Empleado", new { NumeroEmpleado = empleado.NumeroEmpleado})" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"><i class="bi bi-eraser"></i></a></td>
+
+
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
