@@ -470,5 +470,49 @@ namespace BL
 
             return result;
         }
+
+        public static Result GetByUserName(string UserName)
+        {
+            Result result = new Result();
+            try
+            {
+
+                using (DL.RvelazquezProgramacionNcapasContext context = new DL.RvelazquezProgramacionNcapasContext())
+                {
+
+                    {
+
+                        var objUsuario = context.Usuarios.FromSqlRaw(($"UsuarioGetByUserName '{UserName}'")).AsEnumerable().FirstOrDefault();
+
+                        result.Objects = new List<object>();
+
+                        if (objUsuario != null)
+                        {
+
+                            ML.Usuario usuario = new ML.Usuario();
+                            usuario.UserName = objUsuario.UserName;
+                            usuario.Password = objUsuario.Password;
+                            result.Object = usuario;
+
+                            result.Correct = true;
+                        }
+                        else
+                        {
+                            result.Correct = false;
+                            result.ErrorMessage = "Ocurrió un error al obtener los registros en la tabla Aseguradora";
+                        }
+
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return result;
+        }
     }
 }

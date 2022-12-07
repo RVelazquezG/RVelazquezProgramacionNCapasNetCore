@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
+using ML;
 
 namespace PL.Controllers
 {
@@ -314,6 +316,37 @@ namespace PL.Controllers
             var result = BL.Usuario.ChangeStatus(usuario);
 
             return Json(result.Object);
+        }
+        [HttpGet]
+        public ActionResult Login()
+        { 
+        return View();  
+        }
+
+        [HttpPost]
+        public ActionResult Login(string UserName, string Password)
+        
+        {
+            ML.Usuario usuario = new ML.Usuario();
+            ML.Result result = BL.Usuario.GetByUserName(UserName);
+            if(result.Correct)
+            {
+                usuario = (ML.Usuario)result.Object;
+                if (usuario.Password == Password)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.Message = "El usuario o contrasena con incorrectos";
+                    return PartialView("ModalL");
+                }
+            }
+            else
+            {
+                ViewBag.Message = "El usuario o contrasena con incorrectos";
+                return PartialView("ModalL");
+            }
         }
     }
 
